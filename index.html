@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Mega Quizz</title>
+		<link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
+		<link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+		<link rel="stylesheet" href="style.css">
+		
+	</head>
+	<body>
+
+		<!-- on fait un modèle de questionnaire avec des radios -->
+
+		<main id="app">
+			<div class="container">
+				<div class="title_container">
+					<h4>{{message}}</h4>					
+					<h4>Votre score : {{player_score}}</h4>
+					<h4 v-if="currentQuestion"> {{currentQuestion.question}}</h4>
+
+				</div>
+				<div class="questions_container">
+					<form @submit.prevent="submitAnswer">
+						<!-- On va boucler sur les réponses avec v-for -->
+						<!-- L'avantage de cette méthode c'est qu'on peut ajouter autant de réponses qu'on veut, et autant de questionnaires qu'on veut
+						 également -->
+						 <div v-if="currentQuestion" v-for="(correct, answer, index) in currentQuestion.answers" :key="index">
+							<input type ="radio" id ="'reponse' + index" v-model="selectedAnswer" :value="answer">
+							<label :for="'reponse' + index">{{answer}}</label><br>
+						</div>
+						<input type="submit" value="Valider" class="btn btn-success" id="submit">					
+						
+					</form>
+				</div>
+	
+				<div class="footer">
+					<div class="modal">
+						<p>{{successMessage}}</p>
+					</div>
+				</div>
+	
+			 </div>
+	
+
+		</main>
+		
+		 <!-- on va utiliser Axios en CDN avec vue-->
+		<script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+		<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+		<script src="app.js"></script>
+	</body>
+</html>
